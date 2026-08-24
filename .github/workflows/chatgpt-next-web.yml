@@ -7,10 +7,10 @@ on:
   workflow_dispatch:
 
   # 定时触发
-  schedule:
+  # schedule:
     # cron 表达式，表示每天 UTC 时间 0 点执行一次
     # UTC 0 点 = 北京时间早上 8 点
-    - cron: "0 0 * * *"
+    # - cron: "0 0 * * *"
 
 # “jobs” 定义了这个流程里要执行的任务
 jobs:
