@@ -1,7 +1,9 @@
 name: Build and Push ChatGPT-Next-Web Image
 
 on:
+  # 支持手动触发：在 Actions 页面点 "Run workflow"
   workflow_dispatch:
+  # 每天 UTC 00:00 自动运行（北京时间 8:00）
   schedule:
     - cron: "0 0 * * *"
 
@@ -31,10 +33,14 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
+          # 直接使用上游仓库的 main 分支作为构建上下文
           context: https://github.com/ChatGPTNextWeb/NextChat.git#main
           file: Dockerfile
+          # 支持 amd64 和 arm64 架构
           platforms: linux/amd64,linux/arm64
           push: true
+          # 推送标签：latest + 时间戳
           tags: ${{ steps.tags.outputs.tags }}
+          # 使用 GitHub Actions 缓存，加速后续构建
           cache-from: type=gha
           cache-to: type=gha,mode=max
